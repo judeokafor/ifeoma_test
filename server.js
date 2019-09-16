@@ -29,10 +29,25 @@ app.post(
 	isAdmin,
 	Product.addPost
 );
-app.get('/api/v1/Products', Product.getAll);
-app.get('/api/v1/Products/:id', Product.getOne);
+app.get(
+	'/api/v1/Products',
+	passport.authenticate('jwt', { session: false }),
+	isAdmin,
+	Product.getAll
+);
+app.get(
+	'/api/v1/Products/:id',
+	passport.authenticate('jwt', { session: false }),
+	isAdmin,
+	Product.getOne
+);
 app.post('/api/v1/Sales', Sale.addPost);
-app.get('/api/v1/Sales', Sale.getAll);
+app.get(
+	'/api/v1/Sales',
+	passport.authenticate('jwt', { session: false }),
+	isAdmin,
+	Sale.getAll
+);
 app.get('/api/v1/Sales/:id', Sale.getOne);
 
 const PORT = process.env.PORT || 5000;
